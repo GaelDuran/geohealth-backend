@@ -22,8 +22,12 @@ app.use('/api/medicalStaff', medicalStaff);
 app.use('/api/zones', zones);
 app.use(errorMiddleware);
 
-mongoose.connect('mongodb+srv://lgdt2903:leotorres2903@georef26711.izl4qju.mongodb.net/?retryWrites=true&w=majority&appName=georef26711')
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Conexión exitosa!'))
     .catch(err => console.error('No se pudo conectar a MongoDB', err));
 
-app.listen(4000);
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
+});
