@@ -13,7 +13,6 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('Public'));
 app.use('/api/books', books);
 app.use('/api/places', places);
 app.use('/api/users', users);
@@ -25,6 +24,12 @@ app.use(errorMiddleware);
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Conexión exitosa!'))
     .catch(err => console.error('No se pudo conectar a MongoDB', err));
+
+app.get('/', (req, res) => {
+    res.json({
+        message: 'GeoHealth API funcionando correctamente'
+    });
+});
 
 const PORT = process.env.PORT || 4000;
 
